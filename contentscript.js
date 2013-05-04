@@ -1,9 +1,23 @@
-var allowed_url = /irctc/;
+var Trela = Trela || {};
 
-if(allowed_url.test(document.URL)) {
-  chrome.extension.sendMessage({}, alertListener);
-}
+Trela.Content = function() {
+  this.allowedUrl = /irctc/;
+  this.documentUrl = document.URL;
+  this.initialize();
+};
 
-function alertListener(message) {
-  alert(message);
-}
+Trela.Content.prototype = {
+  initialize: function() {
+    if(this.allowedUrl.test(this.documentUrl)) {
+      chrome.extension.sendMessage({}, this.logListener.bind(this));
+    }
+  },
+
+  logListener: function(message) {
+    console.log(message);
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+    new Trela.Content();
+  }, false);
