@@ -1,0 +1,33 @@
+body {
+  margin-left: 20px;
+}
+
+#whitelisted-domains {
+  margin-top: 10px;
+}
+
+#whitelisted-domains label {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  font-family: "Helvetica", "Arial", "sans-serif";
+}
+
+#whitelisted-domains textarea {
+  margin-top: 10px;
+  width: 400px;
+}
+
+button#save {
+  margin-top: 10px;
+  border: none;
+  background: rgba(200,200,200, 0.5);
+  border-radius: 5px;
+  width: 60px;
+  font-size: 1.1em;
+}
+
+button#save:hover {
+  cursor: pointer;
+  background: rgba(200,200,200, 0.9);
+}
