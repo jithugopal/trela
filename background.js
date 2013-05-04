@@ -11,7 +11,6 @@ Trela.Background.prototype = {
   },
 
   onMessageListener: function(request, sender, sendResponse) {
-    debugger;
     this.showPageAction(sender.tab.id);
     this.playBell();
     sendResponse("Page Load!");

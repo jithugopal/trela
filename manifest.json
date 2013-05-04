@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Trela",
-  "description": "In tribute to the people who died waiting for the webpage to load.",
+  "description": "A tribute to the people who died waiting for the webpage to load.",
   "version": "1.0",
 
   "page_action": {
