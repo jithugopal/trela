@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Trela",
+  "description": "In tribute to the people who died waiting for the webpage to load.",
+  "version": "1.0",
+
+  "page_action": {
+    "default_icon": "icon.png",
+    "default_title": "Trela"
+  },
+
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["contentscript.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+
+  "permissions": [
+    "http://irctc.co.in/"
+  ]
+}
