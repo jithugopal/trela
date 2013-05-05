@@ -7,7 +7,7 @@ Trela.LocalStorage = function() {
 
 Trela.LocalStorage.prototype = {
   setDomains: function(domains) {
-    if(this.isArrayEmpty(domains)) {
+    if(Trela.Helpers.isArrayEmpty(domains)) {
       chrome.storage.sync.remove(this.storageKey);
     } else {
       var domainHash = {};
@@ -19,7 +19,7 @@ Trela.LocalStorage.prototype = {
   fetchDomains: function(callback) {
     var storageKey = this.storageKey;
     chrome.storage.sync.get(storageKey, function(domainHash) {
-      var domainArr = domainHash[storageKey] ? domainHash[storageKey].split(self.delimiter) : [];
+      var domainArr = domainHash[storageKey] ? Trela.Helpers.split(domainHash[storageKey], self.delimiter) : [];
       callback(domainArr);
     });
   },
@@ -30,12 +30,5 @@ Trela.LocalStorage.prototype = {
 
   getDelimitedString: function(arr) {
     return (arr || []).join(this.delimiter);
-  },
-
-  isArrayEmpty: function(arr) {
-    if (arr && arr.length > 0) {
-      return false;
-    }
-    return true;
   }
 };

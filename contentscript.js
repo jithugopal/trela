@@ -25,5 +25,5 @@ Trela.Content.prototype = {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-    new Trela.Content();
+  new Trela.Content();
 }, false);

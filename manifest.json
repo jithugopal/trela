@@ -27,7 +27,7 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js": ["local_storage.js", "contentscript.js"],
+      "js": ["helpers.js", "local_storage.js", "contentscript.js"],
       "run_at": "document_start",
       "all_frames": false
     }

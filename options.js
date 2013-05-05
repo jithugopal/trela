@@ -14,7 +14,7 @@ Trela.Options.prototype = {
   },
 
   setDomains: function() {
-    var domains = this.domainContainer.textLength > 0 ? this.domainContainer.value.split("\n") : [];
+    var domains = Trela.Helpers.split(this.domainContainer.value, "\n");
     this.localStorage.setDomains(domains);
   },
 
