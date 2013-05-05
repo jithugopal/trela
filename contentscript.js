@@ -1,16 +1,22 @@
 var Trela = Trela || {};
 
 Trela.Content = function() {
-  this.allowedUrl = /irctc/;
+  this.localStorage = new Trela.LocalStorage();
   this.documentUrl = document.URL;
   this.initialize();
 };
 
 Trela.Content.prototype = {
   initialize: function() {
-    if(this.allowedUrl.test(this.documentUrl)) {
-      chrome.extension.sendMessage({}, this.logListener.bind(this));
-    }
+    var self = this;
+    this.localStorage.fetchDomains(function(allowedDomains){
+      for (var index in allowedDomains) {
+        var domainRegEx = new RegExp(allowedDomains[index]);
+        if(domainRegEx.test(self.documentUrl)) {
+          chrome.extension.sendMessage({}, self.logListener);
+        }
+      }
+    });
   },
 
   logListener: function(message) {
@@ -20,4 +26,4 @@ Trela.Content.prototype = {
 
 document.addEventListener("DOMContentLoaded", function() {
     new Trela.Content();
-  }, false);
+}, false);

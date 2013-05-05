@@ -27,5 +27,5 @@ Trela.Background.prototype = {
 
 document.addEventListener("DOMContentLoaded", function() {
     new Trela.Background(document.getElementById("bell"));
-  }, false);
+}, false);
 

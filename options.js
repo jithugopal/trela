@@ -3,32 +3,27 @@ var Trela = Trela || {};
 Trela.Options = function(container) {
   this.saveButton = container.querySelector("#save");
   this.domainContainer = container.querySelector("#domains");
-  this.restoreDomains();
+  this.localStorage = new Trela.LocalStorage();
   this.initialize();
 };
 
 Trela.Options.prototype = {
   initialize: function() {
-    this.saveButton.addEventListener('click', this.persistDomains.bind(this));
+    this.restoreDomains();
+    this.saveButton.addEventListener('click', this.setDomains.bind(this));
   },
 
-  persistDomains: function() {
-    var domains = this.domainContainer.value.split("\n").join("|");
-    this.setLocalStorage(domains);
+  setDomains: function() {
+    var domains = this.domainContainer.value.split("\n");
+    this.localStorage.setDomains(domains);
   },
 
   restoreDomains: function() {
-    var domains = this.localStorage("whitelisted_domains").split("|");
-    this.domainContainer.value = domains.join("\n");
+    this.localStorage.fetchDomains(this.onStorageAreaGetListener.bind(this));
   },
 
-  setLocalStorage: function(domains) {
-    localStorage["whitelisted_domains"] = domains;
-  },
-
-  localStorage: function(storageName) {
-    localStorage[storageName] = localStorage[storageName] || "";
-    return localStorage[storageName];
+  onStorageAreaGetListener: function(domainArr) {
+    this.domainContainer.value = domainArr.join("\n");
   }
 };
 
