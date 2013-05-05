@@ -1,24 +1,27 @@
 var Trela = Trela || {};
 
 Trela.LocalStorage = function() {
-  this.bucket = "trelo_whitelisted_domains";
+  this.storageKey = "trelo_whitelisted_domains";
   this.delimiter = "|";
 };
 
 Trela.LocalStorage.prototype = {
   setDomains: function(domains) {
-    var payload = {};
-    payload[this.bucket] = this.getDelimitedString(domains);
-    chrome.storage.sync.set(payload, this.onStorageAreaSetListener.bind(this));
+    if(this.isArrayEmpty(domains)) {
+      chrome.storage.sync.remove(this.storageKey);
+    } else {
+      var domainHash = {};
+      domainHash[this.storageKey] = this.getDelimitedString(domains);
+      chrome.storage.sync.set(domainHash, this.onStorageAreaSetListener.bind(this));
+    }
   },
 
   fetchDomains: function(callback) {
-    var self = this;
-    chrome.storage.sync.get(this.bucket, function(domainHash) {
-      var domainArr = (domainHash.trelo_whitelisted_domains || "").split(self.delimiter);
+    var storageKey = this.storageKey;
+    chrome.storage.sync.get(storageKey, function(domainHash) {
+      var domainArr = domainHash[storageKey] ? domainHash[storageKey].split(self.delimiter) : [];
       callback(domainArr);
     });
-    return self;
   },
 
   onStorageAreaSetListener: function() {
@@ -27,5 +30,12 @@ Trela.LocalStorage.prototype = {
 
   getDelimitedString: function(arr) {
     return (arr || []).join(this.delimiter);
+  },
+
+  isArrayEmpty: function(arr) {
+    if (arr && arr.length > 0) {
+      return false;
+    }
+    return true;
   }
 };

@@ -9,16 +9,16 @@ Trela.Options = function(container) {
 
 Trela.Options.prototype = {
   initialize: function() {
-    this.restoreDomains();
+    this.populateDomainText();
     this.saveButton.addEventListener('click', this.setDomains.bind(this));
   },
 
   setDomains: function() {
-    var domains = this.domainContainer.value.split("\n");
+    var domains = this.domainContainer.textLength > 0 ? this.domainContainer.value.split("\n") : [];
     this.localStorage.setDomains(domains);
   },
 
-  restoreDomains: function() {
+  populateDomainText: function() {
     this.localStorage.fetchDomains(this.onStorageAreaGetListener.bind(this));
   },
 
